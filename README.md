@@ -23,15 +23,25 @@ GitHub (Version control)
 
 gearrent-pro/
  ├── src/
+ 
  │   └── com/ijse/gearrent/
+ 
  │       ├── controller/
+ 
  │       ├── view/
+ 
  │       ├── service/
+ 
  │       ├── dao/
+ 
  │       ├── dto/
+ 
  │       └── util/
+ 
  ├── database/
+ 
  │   └── gearrent_pro.sql
+ 
  └── README.md
 
 # Database Configuration
@@ -210,4 +220,5 @@ Demonstrates clean layered architecture
 # Author
 
 Ishara Shrimali Kodikara
+
 CW2 – Equipment Rental Management System
