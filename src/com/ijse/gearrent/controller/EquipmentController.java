@@ -8,11 +8,10 @@ import com.ijse.gearrent.dto.EquipmentDto;
 import com.ijse.gearrent.service.custom.EquipmentService;
 import com.ijse.gearrent.service.custom.impl.EquipmentServiceImpl;
 import com.ijse.gearrent.view.EquipmentView;
+import java.util.List;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import java.util.List;
-
 /**
  *
  * @author Ishara
@@ -22,8 +21,10 @@ public class EquipmentController {
     private final EquipmentView view;
     private final EquipmentService service;
 
+    // ✅ DEFAULT BRANCH (CW-2 DEMO PURPOSE)
     private final int branchId = 1;
 
+    // ✅ NO-ARG CONSTRUCTOR (FIXES YOUR ERROR)
     public EquipmentController() {
         this.view = new EquipmentView();
         this.service = new EquipmentServiceImpl();
@@ -48,15 +49,21 @@ public class EquipmentController {
     }
 
     private void loadCategoryIds() {
+        // TEMP static data (OK for CW-2)
         view.cmbCategoryId.addItem(1);
         view.cmbCategoryId.addItem(2);
         view.cmbCategoryId.addItem(3);
+        view.cmbCategoryId.addItem(4);
+        
+        view.cmbBranchId.addItem(1);
+        view.cmbBranchId.addItem(2);
+        view.cmbBranchId.addItem(3);
     }
 
     private void loadTable() {
         try {
             List<EquipmentDto> list =
-                    service.getEquipmentByBranch(branchId);
+                    service.getAllEquipment();
 
             DefaultTableModel model =
                     (DefaultTableModel) view.tblEquipment.getModel();
@@ -67,6 +74,7 @@ public class EquipmentController {
                 model.addRow(new Object[]{
                         e.getEquipmentId(),
                         e.getCategoryId(),
+                        e.getBranchId(),
                         e.getBrand(),
                         e.getModel(),
                         e.getPurchaseYear(),
@@ -84,15 +92,15 @@ public class EquipmentController {
     private void addEquipment() {
         try {
             EquipmentDto dto = new EquipmentDto(
-                    0,
-                    (int) view.cmbCategoryId.getSelectedItem(),
-                    branchId,
-                    view.txtBrand.getText(),
-                    view.txtModel.getText(),
-                    Integer.parseInt(view.txtPurchaseYear.getText()),
-                    Double.parseDouble(view.txtDailyPrice.getText()),
-                    Double.parseDouble(view.txtDeposit.getText()),
-                    view.cmbStatus.getSelectedItem().toString()
+                0,
+                (int) view.cmbCategoryId.getSelectedItem(),
+                (int) view.cmbBranchId.getSelectedItem(),
+                view.txtBrand.getText(),
+                view.txtModel.getText(),
+                Integer.parseInt(view.txtPurchaseYear.getText()),
+                Double.parseDouble(view.txtDailyPrice.getText()),
+                Double.parseDouble(view.txtDeposit.getText()),
+                view.cmbStatus.getSelectedItem().toString()
             );
 
             service.addEquipment(dto);
@@ -115,7 +123,7 @@ public class EquipmentController {
             EquipmentDto dto = new EquipmentDto(
                     id,
                     (int) view.cmbCategoryId.getSelectedItem(),
-                    branchId,
+                    (int) view.cmbBranchId.getSelectedItem(),
                     view.txtBrand.getText(),
                     view.txtModel.getText(),
                     Integer.parseInt(view.txtPurchaseYear.getText()),
@@ -138,17 +146,20 @@ public class EquipmentController {
         if (row == -1) return;
 
         view.cmbCategoryId.setSelectedItem(view.tblEquipment.getValueAt(row, 1));
-        view.txtBrand.setText(view.tblEquipment.getValueAt(row, 2).toString());
-        view.txtModel.setText(view.tblEquipment.getValueAt(row, 3).toString());
-        view.txtPurchaseYear.setText(view.tblEquipment.getValueAt(row, 4).toString());
-        view.txtDailyPrice.setText(view.tblEquipment.getValueAt(row, 5).toString());
-        view.txtDeposit.setText(view.tblEquipment.getValueAt(row, 6).toString());
-        view.cmbStatus.setSelectedItem(view.tblEquipment.getValueAt(row, 7).toString());
+        view.cmbBranchId.setSelectedItem(view.tblEquipment.getValueAt(row, 2));
+        view.txtBrand.setText(view.tblEquipment.getValueAt(row, 3).toString());
+        view.txtModel.setText(view.tblEquipment.getValueAt(row, 4).toString());
+        view.txtPurchaseYear.setText(view.tblEquipment.getValueAt(row, 5).toString());
+        view.txtDailyPrice.setText(view.tblEquipment.getValueAt(row, 6).toString());
+        view.txtDeposit.setText(view.tblEquipment.getValueAt(row, 7).toString());
+        view.cmbStatus.setSelectedItem(view.tblEquipment.getValueAt(row, 8).toString());
     }
 
     private void clearFields() {
         view.txtBrand.setText("");
         view.txtModel.setText("");
+        view.cmbCategoryId.setSelectedIndex(0);
+        view.cmbBranchId.setSelectedIndex(0);
         view.txtPurchaseYear.setText("");
         view.txtDailyPrice.setText("");
         view.txtDeposit.setText("");
