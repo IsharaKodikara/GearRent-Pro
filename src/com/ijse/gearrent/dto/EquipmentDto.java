@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.ijse.gearrent.dto;
 
 /**
@@ -9,7 +5,8 @@ package com.ijse.gearrent.dto;
  * @author Ishara
  */
 public class EquipmentDto {
- 
+
+    
     private int equipmentId;
     private int categoryId;
     private int branchId;
@@ -23,9 +20,7 @@ public class EquipmentDto {
     public EquipmentDto() {
     }
 
-    public EquipmentDto(int equipmentId, int categoryId, int branchId,
-                        String brand, String model, int purchaseYear,
-                        double baseDailyPrice, double securityDeposit, String status) {
+    public EquipmentDto(int equipmentId, int categoryId, int branchId, String brand, String model, int purchaseYear, double baseDailyPrice, double securityDeposit, String status) {
         this.equipmentId = equipmentId;
         this.categoryId = categoryId;
         this.branchId = branchId;
@@ -166,5 +161,8 @@ public class EquipmentDto {
     @Override
     public String toString() {
         return "EquipmentDto{" + "equipmentId=" + equipmentId + ", categoryId=" + categoryId + ", branchId=" + branchId + ", brand=" + brand + ", model=" + model + ", purchaseYear=" + purchaseYear + ", baseDailyPrice=" + baseDailyPrice + ", securityDeposit=" + securityDeposit + ", status=" + status + '}';
-    }  
+    }
+
+     
 }
+
