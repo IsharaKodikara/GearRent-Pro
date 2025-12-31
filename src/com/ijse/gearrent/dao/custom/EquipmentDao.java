@@ -25,5 +25,7 @@ public interface EquipmentDao extends SuperDao {
     List<EquipmentEntity> findAvailable(int branchId, LocalDate start, LocalDate end) throws Exception;
 
     boolean updateStatus(int equipmentId, String status) throws Exception;
+    
+    public List<EquipmentEntity> getAll() throws Exception;
 }
 
