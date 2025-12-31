@@ -29,4 +29,7 @@ public interface EquipmentService extends SuperService {
             LocalDate startDate,
             LocalDate endDate
     ) throws Exception;
+    
+     List<EquipmentDto> getAllEquipment() throws Exception;
+
 }
