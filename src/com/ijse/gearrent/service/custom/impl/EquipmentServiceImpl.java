@@ -79,6 +79,7 @@ public class EquipmentServiceImpl implements EquipmentService {
     @Override
     public List<EquipmentDto> getEquipmentByBranch(int branchId) throws Exception {
         List<EquipmentDto> list = new ArrayList<>();
+
         for (EquipmentEntity e : equipmentDao.findByBranch(branchId)) {
             list.add(new EquipmentDto(
                     e.getEquipmentId(),
@@ -96,7 +97,11 @@ public class EquipmentServiceImpl implements EquipmentService {
     }
 
     @Override
-    public List<EquipmentDto> getAvailableEquipment(int branchId, LocalDate startDate, LocalDate endDate) throws Exception {
+    public List<EquipmentDto> getAvailableEquipment(
+            int branchId,
+            LocalDate startDate,
+            LocalDate endDate
+    ) throws Exception {
 
         List<EquipmentDto> available = new ArrayList<>();
 
@@ -109,8 +114,7 @@ public class EquipmentServiceImpl implements EquipmentService {
                             endDate
                     ).isEmpty();
 
-            if (!hasReservation && e.getStatus().equals("AVAILABLE")) {
-
+            if (!hasReservation && "AVAILABLE".equals(e.getStatus())) {
                 available.add(new EquipmentDto(
                         e.getEquipmentId(),
                         e.getCategoryId(),
@@ -126,6 +130,28 @@ public class EquipmentServiceImpl implements EquipmentService {
         }
         return available;
     }
-    
-    
+      @Override
+    public List<EquipmentDto> getAllEquipment() throws Exception {
+
+        List<EquipmentDto> dtoList = new ArrayList<>();
+
+        for (EquipmentEntity e : equipmentDao.getAll()) {
+
+            String displayName = e.getBrand() + " " + e.getModel();
+
+            dtoList.add(new EquipmentDto(
+                    e.getEquipmentId(), 
+                    e.getCategoryId(),
+                    e.getBranchId(),
+                    e.getBrand(),
+                    e.getModel(),
+                    e.getPurchaseYear(),
+                    e.getBaseDailyPrice(),
+                    e.getSecurityDeposit(),
+                    e.getStatus()
+       ));
+        }
+        return dtoList;
+    }
 }
+
